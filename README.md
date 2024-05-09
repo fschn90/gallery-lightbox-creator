@@ -37,4 +37,4 @@ based on: https://www.w3schools.com/howto/howto_js_lightbox.asp
 - currently adds one modal element, even for multible gallerys. add a modal element for every gallery element, eg.: 3 modals for 3 galleries. 
 - make mobile friendly
 - add caption and date of image as text besides or below image 
-- add little map with a marker of where image was taken if image has geo-data
+- add little map with a marker of where image was taken if image has geo-data`
