@@ -11,6 +11,7 @@ class galleryBuilder {
             let image = figure.appendChild(document.createElement('img'));
             figure.appendChild(document.createElement('figcaption'));
             image.setAttribute('src', this._list[x]);
+            // image.setAttribute('id', image.src);
         };
     };
 
@@ -77,6 +78,25 @@ class galleryBuilder {
             }
         });
     };
+
+
+    // getExif() {
+    //     const lightboxGallery = document.getElementById(this._id);
+    //     const imags = lightboxGallery.getElementsByTagName('img')
+    //     for (let x in imags) {
+    //         EXIF.getData(imags[x], function() {
+    //             var allMetaData = EXIF.getTag(this, "ImageDescription");
+    //             var imgParent = imags[x].parentElement.lastElementChild 
+    //             imgParent.innerHTML = JSON.stringify(allMetaData, null, "\t");
+    
+    
+    //         });
+    //     };    
+    // };
+
+
+
+
 };
 
 
