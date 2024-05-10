@@ -16,8 +16,6 @@ class galleryBuilder {
     };
 
 
-
-
     modal() {
 
         // supplementing gallery with functionality to open modal
@@ -56,8 +54,11 @@ class galleryBuilder {
             let countDiv = containerDiv.appendChild(document.createElement("div"));
             countDiv.setAttribute('class', 'numbertext');
             countDiv.innerHTML = (i+1) + ' / ' + images.length;
-            let image = containerDiv.appendChild(document.createElement("img"));
+            let figure = countDiv.appendChild(document.createElement('figure'))
+            let image = figure.appendChild(document.createElement("img"));
             image.setAttribute('src', images[i].getAttribute('src'));
+            figure.appendChild(document.createElement('figcaption'))
+
         }
 
         // adding modal to document
@@ -80,27 +81,41 @@ class galleryBuilder {
     };
 
 
-    // getExif() {
-    //     const lightboxGallery = document.getElementById(this._id);
-    //     const imags = lightboxGallery.getElementsByTagName('img')
-    //     for (let x in imags) {
-    //         EXIF.getData(imags[x], function() {
-    //             var allMetaData = EXIF.getTag(this, "ImageDescription");
-    //             var imgParent = imags[x].parentElement.lastElementChild 
-    //             imgParent.innerHTML = JSON.stringify(allMetaData, null, "\t");
-    
-    
-    //         });
-    //     };    
-    // };
+    getExif() {
+        // adds captions to gallery
+        var container = document.getElementById(this._id);
+        var imags = container.getElementsByTagName('img')
+        for (let x in imags) {
+            EXIF.getData(imags[x], function() {
+                var caption = EXIF.getTag(this, "ImageDescription");
+                var datetime = EXIF.getTag(this, "DateTime");
+                var imgParent = imags[x].parentElement.lastElementChild 
+                var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')')
+                imgParent.innerHTML = string
+            });
+        };
+        
+        // add caption to modal
+        var modal = document.getElementById('myModal');
+        var imagsM = modal.getElementsByTagName('img')
+        for (let x in imags) {
+            EXIF.getData(imagsM[x], function() {
+                var caption = EXIF.getTag(this, "ImageDescription");
+                var datetime = EXIF.getTag(this, "DateTime");
+                var imgParent = imagsM[x].parentElement.lastElementChild 
+                datetime = datetime.substring(0,10).replace(/:/g, '.')
+                var string = utf8.decode(caption + ' (' + datetime + ')')
+                imgParent.innerHTML = string
+            });
+        };
 
-
-
+    };
 
 };
 
 
 
+// supplementary functions neccessary for modal
 function openModal() {
     document.getElementById("myModal").style.display = "block";
     document.querySelector('a.prev').style.visibility= 'visible';
@@ -127,3 +142,4 @@ function showSlides(n) {
     };
     slides[slideIndex-1].style.display = "block";
 };
+
