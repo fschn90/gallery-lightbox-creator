@@ -15,26 +15,23 @@ class galleryBuilder {
         };
     };
 
-
     modal() {
         // supplementing gallery with functionality to open modal
         var lightboxGallery = document.getElementById(this._galleryId);
         var images = lightboxGallery.getElementsByTagName('img')
         for (var i = 0; i < images.length; i++) {
             images[i].setAttribute('onclick', 'openModal(' + this._galleryId + 'MODAL' + '); currentSlide(' + this._galleryId + 'MODAL' + ', ' + ( i + 1) + ')');
-            // images[i].setAttribute('onclick', 'openModal(); currentSlide(' + ( i + 1) + ')');
             images[i].setAttribute('class', 'hover-shadow');
         };
 
-        document.getElementsby
-        // creating myModal (lighbox), 
+        // creating modal
         var modal = document.createElement("div")
         modal.setAttribute('id', this._galleryId + 'MODAL')
         modal.setAttribute('class', 'modal');
         let modalContent = modal.appendChild(document.createElement("div"));
         modalContent.setAttribute('class', 'modal-content')
 
-        // adding Close, Prev and Next Button to myModal
+        // adding Close, Prev and Next Button to modal
         let closeButton = modal.appendChild(document.createElement("span"));
         closeButton.setAttribute('class', 'close cursor');
         closeButton.setAttribute('onclick', 'closeModal()');
@@ -42,15 +39,13 @@ class galleryBuilder {
         let prevButton = modal.appendChild(document.createElement('a'));
         prevButton.setAttribute('class', 'prev');
         prevButton.setAttribute('onclick', 'plusSlides(' + this._galleryId + 'MODAL' + ',-1)');
-        // prevButton.setAttribute('onclick', 'plusSlides(-1)');
         prevButton.innerHTML = '&#10094;';
         let nextButton = modal.appendChild(document.createElement('a'))
         nextButton.setAttribute('class', 'next');
         nextButton.setAttribute('onclick', 'plusSlides(' + this._galleryId + 'MODAL' + ',1)');
-        // nextButton.setAttribute('onclick', 'plusSlides(1)');
         nextButton.innerHTML = '&#10095;';
 
-        // adding images to myModal 
+        // adding images to modal 
         for (var i = 0; i < images.length; i++) {
             let containerDiv = modalContent.appendChild(document.createElement("div"));
             containerDiv.setAttribute('class', 'mySlides');
@@ -67,24 +62,7 @@ class galleryBuilder {
         // adding modal to document
         document.querySelector("body").appendChild(modal);
 
-        // adding keyboard functunality to myModal
-
-        // TODO make keys work, somehow the functions need to know which modal they r supposed to be in
-
-        document.addEventListener('keydown', (event) => {
-            var key = event.key;
-            if (key == 'ArrowLeft') {
-                plusSlides(-1);
-            }
-            else if (key == 'ArrowRight') {
-                plusSlides(1);
-            }
-            else if (key == 'Escape') {
-                closeModal();
-            };
-        });
     };
-
 
     getExif() {
         
@@ -121,12 +99,20 @@ class galleryBuilder {
 
 };
 
-
-
 // supplementary functions neccessary for modal
-
 function openModal(modalElement) {
-    // document.getElementById(n).style.display = "block";
+    document.addEventListener('keydown', keys = (event) => {
+        var key = event.key;
+        if (key == 'ArrowLeft') {
+            plusSlides(modalElement, -1);
+        }
+        else if (key == 'ArrowRight') {
+            plusSlides(modalElement, 1);
+        }
+        else if (key == 'Escape') {
+            closeModal();
+        };
+    });
     modalElement.style.display = "block";
     document.querySelector('a.prev').style.visibility= 'visible';
 };
@@ -136,7 +122,7 @@ function closeModal() {
     for (var x = 0;x < modalElement.length; x++) {
         modalElement[x].style.display = 'none'
     };
-    // document.getElementById("myModal").style.display = "none";
+    document.removeEventListener('keydown', keys)
 };
 
 function plusSlides(modalElement, n) {
@@ -149,7 +135,6 @@ function plusSlides(modalElement, n) {
 
 function showSlides(modalElement, n) {
     var slides = modalElement.getElementsByClassName("mySlides");
-    // var slides = document.getElementsByClassName("mySlides");
     if (n > slides.length) {slideIndex = 1};
     if (n < 1) {slideIndex = slides.length};
     for (var i = 0; i < slides.length; i++) {
@@ -157,4 +142,3 @@ function showSlides(modalElement, n) {
     };
     slides[slideIndex-1].style.display = "block";
 };
-
