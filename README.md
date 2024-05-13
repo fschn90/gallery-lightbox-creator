@@ -16,7 +16,7 @@ npm install # from package.json
 
 3. add to your html:
 ```html
-# website.html
+<!-- website.html -->
 <script src="node_modules/utf8/utf8.js"></script>
 <script src="node_modules/exif-js/exif.js"></script>
 <script src="gallerybuilder.js"></script>
@@ -25,7 +25,7 @@ npm install # from package.json
 
 ## usage 
 ```html
-# website.html
+ <!-- website.html -->
 <script type="module">
     var instance1 = new galleryBuilder(
         'Gallery1', // reference to html container with id
