@@ -1,4 +1,4 @@
-# simple gallery and lightbox creater
+# gallery lightbox creator
 javascript to automatically create gallery and lightbox.
 
 gallery            |  lightbox
