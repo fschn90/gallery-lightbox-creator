@@ -17,7 +17,7 @@ class galleryBuilder {
         };
     };
 
-    buildModal() {
+    buildLightbox() {
         // supplementing gallery with functionality to open modal
         var lightboxGallery = document.getElementById(this._galleryId);
         var images = lightboxGallery.getElementsByTagName('img')
