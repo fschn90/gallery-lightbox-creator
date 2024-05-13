@@ -1,10 +1,12 @@
+// import * as EXIF from 'exif-js'
+
 class galleryBuilder {
     constructor(galleryId, links) {
     this._galleryId = galleryId
     this._list = links;
     };
 
-    build() {
+    buildGallery() {
         let gallery = document.getElementById(this._galleryId);
         gallery.setAttribute('class', 'Gallery')
         for (let x in this._list) {
@@ -15,7 +17,7 @@ class galleryBuilder {
         };
     };
 
-    modal() {
+    buildModal() {
         // supplementing gallery with functionality to open modal
         var lightboxGallery = document.getElementById(this._galleryId);
         var images = lightboxGallery.getElementsByTagName('img')
@@ -63,40 +65,6 @@ class galleryBuilder {
         document.querySelector("body").appendChild(modal);
 
     };
-
-    getExif() {
-        
-        // TODO make work with multiple modals
-
-        // adds captions to gallery
-        var container = document.getElementById(this._galleryId);
-        var imags = container.getElementsByTagName('img');
-        for (let x in imags) {
-            EXIF.getData(imags[x], function() {
-                var caption = EXIF.getTag(this, "ImageDescription");
-                var datetime = EXIF.getTag(this, "DateTime");
-                var imgParent = imags[x].parentElement.lastElementChild;
-                var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')')
-                imgParent.innerHTML = string;
-            });
-        };
-        
-        // add captions to modal
-        var modal = document.getElementById(this._galleryId + 'MODAL');
-        var imagsM = modal.getElementsByTagName('img');
-        for (let x in imagsM) {
-            EXIF.getData(imagsM[x], function() {
-                var caption = EXIF.getTag(this, "ImageDescription");
-                var datetime = EXIF.getTag(this, "DateTime");
-                var imgParent = imagsM[x].parentElement.lastElementChild ;
-                datetime = datetime.substring(0,10).replace(/:/g, '.');
-                var string = utf8.decode(caption + ' (' + datetime + ')');
-                imgParent.innerHTML = string;
-            });
-        };
-
-    };
-
 };
 
 // supplementary functions neccessary for modal
@@ -141,4 +109,40 @@ function showSlides(modalElement, n) {
         slides[i].style.display = "none";
     };
     slides[slideIndex-1].style.display = "block";
+};
+
+
+function getExif() {
+        
+    // adds captions to gallery
+    var container = document.getElementsByClassName('Gallery');
+    for (var y=0; y < container.length; y++) {
+        var imags = container[y].getElementsByTagName('img');
+        for (var x =0;x < imags.length; x++) {
+            EXIF.getData(imags[x], function() {
+                var caption = EXIF.getTag(this, "ImageDescription");
+                var datetime = EXIF.getTag(this, "DateTime");
+                var imgParent = this.parentElement.lastElementChild;
+                var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')')
+                imgParent.innerHTML = string;
+            });
+        }    
+    };
+
+    // add captions to modal
+    var container = document.getElementsByClassName('modal');
+    for (var y=0; y < container.length; y++) {
+        var imags = container[y].getElementsByTagName('img');
+        for (var x =0;x < imags.length; x++) {
+            EXIF.getData(imags[x], function() {
+                var caption = EXIF.getTag(this, "ImageDescription");
+                var datetime = EXIF.getTag(this, "DateTime");
+                var imgParent = this.parentElement.lastElementChild ;
+                console.log(imgParent)
+                datetime = datetime.substring(0,10).replace(/:/g, '.');
+                var string = utf8.decode(caption + ' (' + datetime + ')');
+                imgParent.innerHTML = string;
+            });
+        };
+    }
 };
