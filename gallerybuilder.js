@@ -1,4 +1,4 @@
-// import * as EXIF from 'exif-js'
+// import './node_modules/exif-js/exif.js';
 
 class galleryBuilder {
     constructor(galleryId, links) {
@@ -138,7 +138,6 @@ function getExif() {
                 var caption = EXIF.getTag(this, "ImageDescription");
                 var datetime = EXIF.getTag(this, "DateTime");
                 var imgParent = this.parentElement.lastElementChild ;
-                console.log(imgParent)
                 datetime = datetime.substring(0,10).replace(/:/g, '.');
                 var string = utf8.decode(caption + ' (' + datetime + ')');
                 imgParent.innerHTML = string;
