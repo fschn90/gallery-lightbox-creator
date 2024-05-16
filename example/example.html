@@ -1,50 +1,56 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <style> body {margin: 1em auto !important; width: 90vw !important; max-width: 1200px; } </style>
-        <link rel="stylesheet" href="../gallerybuilder.css" />
-        <script src="../node_modules/utf8/utf8.js"></script>
-        <script src="../node_modules/exif-js/exif.js"></script>
-        <script src="../gallerybuilder.js"></script>
-        <script type="module">
-            var instance1 = new galleryBuilder(
-                'Gallery1', // reference to html container with id
-                [
-                    "./foto-1.jpg",
-                    "./foto-2.jpg",
-                    "./foto-3.jpg",
-                    "./foto-4.jpg",
-                    "./foto-5.jpg"
-               ]
-            );
-            
-            instance1.buildGallery();
-            instance1.buildLightbox();
-            
-            var instance2 = new galleryBuilder(
-                    'Gallery2', // reference to html container with id
-                    [
-                    "./foto-1.jpg",
-                    "./foto-2.jpg",
-                    "./foto-3.jpg",
-                    "./foto-4.jpg",
-                    "./foto-5.jpg"
-                   ]
-                );
-                
-            instance2.buildGallery();
-            instance2.buildLightbox();
-            
-            window.onload= getExif; // adding captions to all images images
-        </script>
-    </head>
-    <body>
-        <h1>Gallery example</h1>
-            <br>
-        <h2>Fotos 1 </h2>
-           <div class="Gallery" id="Gallery1"></div>
-        <h2>Fotos 2</h2>
-          <div class="Gallery" id="Gallery2"></div>
-    </body>
+<head>
+    <meta charset="UTF-8" />
+    <style>
+        body {
+            margin: 1em auto !important;
+            width: 90vw !important;
+            max-width: 1200px;
+        }
+    </style>
+    <link rel="stylesheet" href="../gallerybuilder.css" />
+    <script src="../node_modules/utf8/utf8.js"></script>
+    <script src="../node_modules/exif-js/exif.js"></script>
+    <script src="../gallerybuilder.js"></script>
+    <script type="module">
+        var instance1 = new galleryBuilder(
+            "Gallery1", // reference to html container with id
+            [
+                "./foto-1.jpg",
+                "./foto-2.jpg",
+                "./foto-3.jpg",
+                "./foto-4.jpg",
+                "./foto-5.jpg",
+            ],
+        );
+
+        instance1.buildGallery();
+        instance1.buildLightbox();
+
+        var instance2 = new galleryBuilder(
+            "Gallery2", // reference to html container with id
+            [
+                "./foto-1.jpg",
+                "./foto-2.jpg",
+                "./foto-3.jpg",
+                "./foto-4.jpg",
+                "./foto-5.jpg",
+            ],
+        );
+
+        instance2.buildGallery();
+        instance2.buildLightbox();
+
+        window.onload = getExif; // adding captions to all images images
+    </script>
+
+<body>
+    <h1>Gallery example</h1>
+    <br />
+    <h2>Fotos 1</h2>
+    <div class="Gallery" id="Gallery1"></div>
+    <h2>Fotos 2</h2>
+    <div class="Gallery" id="Gallery2"></div>
+</body>
 </html>

@@ -44,6 +44,7 @@ npm install # from package.json
 
   instance1.buildGallery();
   instance1.buildLightbox();
+  instance1.buildCaptions();
 
   var instance2 = new galleryBuilder(
     "Gallery2", // reference to html container with id
@@ -58,8 +59,7 @@ npm install # from package.json
 
   instance2.buildGallery();
   instance2.buildLightbox();
-
-  window.onload = getExif; // adding captions (part of image file) to all images on galery and lightbox
+  instance2.buildCaptions();
 </script>
 <body>
   <h1>Gallery example</h1>
@@ -73,7 +73,7 @@ npm install # from package.json
 
 ## limitations
 
-adding caption only possible for images of all galleries. currently not possible to add captions for only 1 (out of eg 2) galleries.
+integration of exif-js into class method, hacky at best. but it works.
 
 ## credits
 
