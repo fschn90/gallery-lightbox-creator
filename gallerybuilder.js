@@ -81,32 +81,74 @@ class galleryBuilder {
     document.querySelector("body").appendChild(modal);
   }
 
-  buildCaptions() {
+  buildCaptions( dateGallery = true, dateModal = false) {
+    
+    this.dateGallery = dateGallery
+    this.dateModal = dateModal
+
+    if (this.dateGallery && this.dateModal) {
+      this.query = `var container = ${this._galleryId}.getElementsByTagName('img');
+      for (var x =0;x < container.length; x++) {
+          EXIF.getData(container[x], function() {
+              var caption = EXIF.getTag(this, "ImageDescription");
+              var datetime = EXIF.getTag(this, "DateTime");
+              var imgParent = this.parentElement.lastElementChild;
+              var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
+              imgParent.innerHTML = string;
+          });
+      };
+      var container = ${this._galleryId + "MODAL"}.getElementsByTagName('img');
+      for (var x =0;x < container.length; x++) {
+          EXIF.getData(container[x], function() {
+              var caption = EXIF.getTag(this, "ImageDescription");
+              var datetime = EXIF.getTag(this, "DateTime");
+              var imgParent = this.parentElement.lastElementChild;
+              datetime = datetime.substring(0,10).replace(/:/g, '.');
+              var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
+              imgParent.innerHTML = string;
+          });
+      };`
+    } else {
+      this.query = `var container = ${this._galleryId}.getElementsByTagName('img');
+      for (var x =0;x < container.length; x++) {
+          EXIF.getData(container[x], function() {
+              var caption = EXIF.getTag(this, "ImageDescription");
+              // var datetime = EXIF.getTag(this, "DateTime");
+              var imgParent = this.parentElement.lastElementChild;
+              // var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
+              var string = utf8.decode(caption);
+              imgParent.innerHTML = string;
+          });
+      };
+      var container = ${this._galleryId + "MODAL"}.getElementsByTagName('img');
+      for (var x =0;x < container.length; x++) {
+          EXIF.getData(container[x], function() {
+              var caption = EXIF.getTag(this, "ImageDescription");
+              // var datetime = EXIF.getTag(this, "DateTime");
+              var imgParent = this.parentElement.lastElementChild;
+              //datetime = datetime.substring(0,10).replace(/:/g, '.');
+              // var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
+              var string = utf8.decode(caption);
+              imgParent.innerHTML = string;
+          });
+      };`
+    }
+
+    
+
     var getExif = new Function(
       "name",
-      `var container = ${this._galleryId}.getElementsByTagName('img');
-            for (var x =0;x < container.length; x++) {
-                EXIF.getData(container[x], function() {
-                    var caption = EXIF.getTag(this, "ImageDescription");
-                    var datetime = EXIF.getTag(this, "DateTime");
-                    var imgParent = this.parentElement.lastElementChild;
-                    var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
-                    imgParent.innerHTML = string;
-                });
-            };
-            var container = ${this._galleryId + "MODAL"}.getElementsByTagName('img');
-            for (var x =0;x < container.length; x++) {
-                EXIF.getData(container[x], function() {
-                    var caption = EXIF.getTag(this, "ImageDescription");
-                    var datetime = EXIF.getTag(this, "DateTime");
-                    var imgParent = this.parentElement.lastElementChild;
-                    datetime = datetime.substring(0,10).replace(/:/g, '.');
-                    var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
-                    imgParent.innerHTML = string;
-                });
-            };`,
+      this.query
     );
-    window.onload = getExif;
+    
+    var temp=function(){ return 1;};
+    if (window.onload) {
+      temp = window.onload;
+    } else {
+      window.onload = getExif;
+    }
+    window.onload = function() {getExif(); temp();};
+    // window.onload = getExif;
   }
 }
 

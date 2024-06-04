@@ -42,7 +42,22 @@
 
         instance2.buildGallery();
         instance2.buildLightbox();
-        instance2.buildCaptions();
+        // instance2.buildCaptions();         
+        
+        var instance3 = new galleryBuilder(
+            "Gallery3", // reference to html container with id
+            [
+                "./foto-1.jpg",
+                "./foto-2.jpg",
+                "./foto-3.jpg",
+                "./foto-4.jpg",
+                "./foto-5.jpg",
+            ],
+        );
+
+        instance3.buildGallery();
+        instance3.buildLightbox();
+        instance3.buildCaptions(); 
     </script>
 
 <body>
@@ -52,5 +67,7 @@
     <div class="Gallery" id="Gallery1"></div>
     <h2>Fotos 2</h2>
     <div class="Gallery" id="Gallery2"></div>
+    <h2>Fotos 3</h2>
+    <div class="Gallery" id="Gallery3"></div>
 </body>
 </html>
