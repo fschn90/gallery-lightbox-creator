@@ -81,64 +81,45 @@ class galleryBuilder {
     document.querySelector("body").appendChild(modal);
   }
 
-  buildCaptions( dateGallery = true, dateModal = false) {
+  buildCaptions( dateGallery = true) {
     
-    this.dateGallery = dateGallery
-    this.dateModal = dateModal
 
-    if (this.dateGallery && this.dateModal) {
-      this.query = `var container = ${this._galleryId}.getElementsByTagName('img');
-      for (var x =0;x < container.length; x++) {
-          EXIF.getData(container[x], function() {
-              var caption = EXIF.getTag(this, "ImageDescription");
-              var datetime = EXIF.getTag(this, "DateTime");
-              var imgParent = this.parentElement.lastElementChild;
-              var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
-              imgParent.innerHTML = string;
-          });
-      };
-      var container = ${this._galleryId + "MODAL"}.getElementsByTagName('img');
-      for (var x =0;x < container.length; x++) {
-          EXIF.getData(container[x], function() {
-              var caption = EXIF.getTag(this, "ImageDescription");
-              var datetime = EXIF.getTag(this, "DateTime");
-              var imgParent = this.parentElement.lastElementChild;
-              datetime = datetime.substring(0,10).replace(/:/g, '.');
-              var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
-              imgParent.innerHTML = string;
-          });
-      };`
+    // build mechanism to insert 
+
+    if (this.dateGallery) {
+
     } else {
-      this.query = `var container = ${this._galleryId}.getElementsByTagName('img');
-      for (var x =0;x < container.length; x++) {
-          EXIF.getData(container[x], function() {
-              var caption = EXIF.getTag(this, "ImageDescription");
-              // var datetime = EXIF.getTag(this, "DateTime");
-              var imgParent = this.parentElement.lastElementChild;
-              // var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
-              var string = utf8.decode(caption);
-              imgParent.innerHTML = string;
-          });
-      };
-      var container = ${this._galleryId + "MODAL"}.getElementsByTagName('img');
-      for (var x =0;x < container.length; x++) {
-          EXIF.getData(container[x], function() {
-              var caption = EXIF.getTag(this, "ImageDescription");
-              // var datetime = EXIF.getTag(this, "DateTime");
-              var imgParent = this.parentElement.lastElementChild;
-              //datetime = datetime.substring(0,10).replace(/:/g, '.');
-              // var string = utf8.decode(caption + ' (' + datetime.substring(0,4) + ')');
-              var string = utf8.decode(caption);
-              imgParent.innerHTML = string;
-          });
-      };`
+
     }
 
     
 
     var getExif = new Function(
       "name",
-      this.query
+      `var container = ${this._galleryId}.getElementsByTagName('img');
+      for (var x =0;x < container.length; x++) {
+          EXIF.getData(container[x], function() {
+              var caption = EXIF.getTag(this, "ImageDescription");
+              datetime = EXIF.getTag(this, "DateTime");
+              datetime = ' (' + datetime.substring(0,4) + ')';
+              datetime = ''; // INSERT VIA FSTRING HERE
+              var string = utf8.decode(caption + datetime);
+              var imgParent = this.parentElement.lastElementChild;
+              imgParent.innerHTML = string;
+          });
+      };
+      var container = ${this._galleryId + "MODAL"}.getElementsByTagName('img');
+      for (var x =0;x < container.length; x++) {
+          EXIF.getData(container[x], function() {
+              var caption = EXIF.getTag(this, "ImageDescription");
+              datetime = EXIF.getTag(this, "DateTime");
+              datetime = ' (' + datetime.substring(0,10).replace(/:/g, '.') + ')';
+              datetime = ''; // INSERT VIA FSTRING HERE
+              var imgParent = this.parentElement.lastElementChild;
+              var string = utf8.decode(caption + datetime);
+              imgParent.innerHTML = string;
+          });
+      };`
     );
     
     var temp=function(){ return 1;};
