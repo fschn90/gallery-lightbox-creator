@@ -81,18 +81,23 @@ class galleryBuilder {
     document.querySelector("body").appendChild(modal);
   }
 
-  buildCaptions( dateGallery = true) {
+  buildCaptions( dateGallery = true, dateModal = true) {
+
+    // TODO: README, HOW TO INPUT PARAMETERS WITH `NAME`, MORE MODULAR?
     
-
-    // build mechanism to insert 
-
-    if (this.dateGallery) {
-
-    } else {
-
+    if (dateGallery && dateModal) {
+        this.helperGallery = "";
+        this.helperModal = "";
+    } else if ( dateGallery == true && dateModal == false) {
+      this.helperGallery = "";    
+      this.helperModal = "datetime = '';";
+    } else if ( dateGallery == false && dateModal == true) {
+      this.helperGallery = "datetime = '';";    
+      this.helperModal = "";
+    } else if ( dateGallery == false && dateModal == false) {
+      this.helperGallery = "datetime = '';";   
+      this.helperModal = "datetime = '';";
     }
-
-    
 
     var getExif = new Function(
       "name",
@@ -102,7 +107,7 @@ class galleryBuilder {
               var caption = EXIF.getTag(this, "ImageDescription");
               datetime = EXIF.getTag(this, "DateTime");
               datetime = ' (' + datetime.substring(0,4) + ')';
-              datetime = ''; // INSERT VIA FSTRING HERE
+              ${this.helperGallery}
               var string = utf8.decode(caption + datetime);
               var imgParent = this.parentElement.lastElementChild;
               imgParent.innerHTML = string;
@@ -114,7 +119,7 @@ class galleryBuilder {
               var caption = EXIF.getTag(this, "ImageDescription");
               datetime = EXIF.getTag(this, "DateTime");
               datetime = ' (' + datetime.substring(0,10).replace(/:/g, '.') + ')';
-              datetime = ''; // INSERT VIA FSTRING HERE
+              ${this.helperModal}
               var imgParent = this.parentElement.lastElementChild;
               var string = utf8.decode(caption + datetime);
               imgParent.innerHTML = string;
