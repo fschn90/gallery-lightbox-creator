@@ -44,7 +44,7 @@ npm install # from package.json
 
   instance1.buildGallery();
   instance1.buildLightbox();
-  instance1.buildCaptions();
+  instance1.buildCaptions({dateGallery: false, dateModal: true});
 
   var instance2 = new galleryBuilder(
     "Gallery2", // reference to html container with id
@@ -59,7 +59,7 @@ npm install # from package.json
 
   instance2.buildGallery();
   instance2.buildLightbox();
-  instance2.buildCaptions();
+  instance2.buildCaptions({});
 </script>
 <body>
   <h1>Gallery example</h1>
@@ -70,6 +70,8 @@ npm install # from package.json
   <div class="Gallery" id="Gallery2"></div>
 </body>
 ```
+
+buildCaptions needs an dictionaty as parameter. An empty one, `{}`, for default values displaying dates in Gallery and Lightbox/Modal. Or eg.: `{dateGallery: false, dateModal: true}` to not show dates in Gallery but in Lightbox/Modal.
 
 ## limitations
 

@@ -81,10 +81,7 @@ class galleryBuilder {
     document.querySelector("body").appendChild(modal);
   }
 
-  buildCaptions( dateGallery = true, dateModal = true) {
-
-    // TODO: README, HOW TO INPUT PARAMETERS WITH `NAME`, MORE MODULAR?
-    
+  buildCaptions( {dateGallery = true, dateModal = true}) {
     if (dateGallery && dateModal) {
         this.helperGallery = "";
         this.helperModal = "";
