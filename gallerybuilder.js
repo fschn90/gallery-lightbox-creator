@@ -14,7 +14,8 @@ class galleryBuilder {
       // let image = ahref.appendChild(document.createElement("img"));
       let image = figure.appendChild(document.createElement("img"));
       figure.appendChild(document.createElement("figcaption"));
-      image.setAttribute("src", "./thumbnails/" + this._list[x]);
+      var path = this._list[x]
+      image.setAttribute("src", "./images/thumbnails/" + path.substring(9));
     }
   }
 
@@ -77,7 +78,7 @@ class galleryBuilder {
       let figure = countDiv.appendChild(document.createElement("figure"));
       let image = figure.appendChild(document.createElement("img"));
       let src = images[i].getAttribute("src")
-      image.setAttribute("src", src.substring(13));
+      image.setAttribute("src", "./images/" + src.substring(20));
       figure.appendChild(document.createElement("figcaption"));
     }
 
