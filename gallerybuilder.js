@@ -1,7 +1,8 @@
 class galleryBuilder {
-  constructor(galleryId, links) {
+  constructor(galleryId, links, thumbnails = false) {
     this._galleryId = galleryId;
     this._list = links;
+    this._thumbnails = thumbnails
   }
 
   buildGallery() {
@@ -9,13 +10,14 @@ class galleryBuilder {
     gallery.setAttribute("class", "Gallery");
     for (let x in this._list) {
       let figure = gallery.appendChild(document.createElement("figure"));
-      // let ahref = figure.appendChild(document.createElement('a'))
-      // ahref.setAttribute('href', this._list[x])
-      // let image = ahref.appendChild(document.createElement("img"));
       let image = figure.appendChild(document.createElement("img"));
       figure.appendChild(document.createElement("figcaption"));
-      var path = this._list[x]
-      image.setAttribute("src", "./images/thumbnails/" + path.substring(9));
+      if (this._thumbnails) {
+        var path = this._list[x]
+        image.setAttribute("src", "./images/thumbnails/" + path.substring(9));
+      } else {
+        image.setAttribute("src", this._list[x])
+      }
     }
   }
 
@@ -77,8 +79,12 @@ class galleryBuilder {
       countDiv.innerHTML = i + 1 + " / " + images.length;
       let figure = countDiv.appendChild(document.createElement("figure"));
       let image = figure.appendChild(document.createElement("img"));
-      let src = images[i].getAttribute("src")
-      image.setAttribute("src", "./images/" + src.substring(20));
+      if (this._thumbnails) {
+        let src = images[i].getAttribute("src")
+        image.setAttribute("src", "./images/" + src.substring(20));
+      } else {
+        image.setAttribute("src", images[i].getAttribute("src"))
+      }
       figure.appendChild(document.createElement("figcaption"));
     }
 
