@@ -12,12 +12,20 @@ class galleryBuilder {
       let figure = gallery.appendChild(document.createElement("figure"));
       let image = figure.appendChild(document.createElement("img"));
       figure.appendChild(document.createElement("figcaption"));
+
       if (this._thumbnails) {
-        var path = this._list[x]
-        image.setAttribute("src", "./images/thumbnails/" + path.substring(9));
+          var path = this._list[x]
+          let subpath = path.substring(-1)
+        if (subpath == subpath.toLowerCase()) {
+          image.setAttribute("src", "./images/thumbnails/" + path.substring(9));
+        } else {
+          path = path.substring(9)
+          image.setAttribute("src", "./images/thumbnails/" + path.replace('JPG', 'jpg'));
+        }
       } else {
         image.setAttribute("src", this._list[x])
       }
+      
     }
   }
 
