@@ -9,9 +9,12 @@ class galleryBuilder {
     gallery.setAttribute("class", "Gallery");
     for (let x in this._list) {
       let figure = gallery.appendChild(document.createElement("figure"));
+      // let ahref = figure.appendChild(document.createElement('a'))
+      // ahref.setAttribute('href', this._list[x])
+      // let image = ahref.appendChild(document.createElement("img"));
       let image = figure.appendChild(document.createElement("img"));
       figure.appendChild(document.createElement("figcaption"));
-      image.setAttribute("src", this._list[x]);
+      image.setAttribute("src", "./thumbnails/" + this._list[x]);
     }
   }
 
@@ -73,7 +76,8 @@ class galleryBuilder {
       countDiv.innerHTML = i + 1 + " / " + images.length;
       let figure = countDiv.appendChild(document.createElement("figure"));
       let image = figure.appendChild(document.createElement("img"));
-      image.setAttribute("src", images[i].getAttribute("src"));
+      let src = images[i].getAttribute("src")
+      image.setAttribute("src", src.substring(13));
       figure.appendChild(document.createElement("figcaption"));
     }
 
