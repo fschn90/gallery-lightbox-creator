@@ -5,49 +5,9 @@ class galleryBuilder {
     this._thumbnails = thumbnails
   }
 
-  buildGallery() {
+  build() {
     let gallery = document.getElementById(this._galleryId);
     gallery.setAttribute("class", "Gallery");
-    for (let x in this._list) {
-      let figure = gallery.appendChild(document.createElement("figure"));
-      let image = figure.appendChild(document.createElement("img"));
-      figure.appendChild(document.createElement("figcaption"));
-
-      if (this._thumbnails) {
-          var path = this._list[x]
-          let subpath = path.substring(-1)
-        if (subpath == subpath.toLowerCase()) {
-          image.setAttribute("src", "./images/thumbnails/" + path.substring(9));
-        } else {
-          path = path.substring(9)
-          image.setAttribute("src", "./images/thumbnails/" + path.replace('JPG', 'jpg'));
-        }
-      } else {
-        image.setAttribute("src", this._list[x])
-      }
-      
-    }
-  }
-
-  buildLightbox() {
-    // supplementing gallery with functionality to open modal
-    var lightboxGallery = document.getElementById(this._galleryId);
-    var images = lightboxGallery.getElementsByTagName("img");
-    for (var i = 0; i < images.length; i++) {
-      images[i].setAttribute(
-        "onclick",
-        "openModal(" +
-          this._galleryId +
-          "MODAL" +
-          "); currentSlide(" +
-          this._galleryId +
-          "MODAL" +
-          ", " +
-          (i + 1) +
-          ")",
-      );
-      images[i].setAttribute("class", "hover-shadow");
-    }
 
     // creating modal
     var modal = document.createElement("div");
@@ -75,32 +35,63 @@ class galleryBuilder {
       "plusSlides(" + this._galleryId + "MODAL" + ",1)",
     );
     nextButton.innerHTML = "&#10095;";
+    
+    // building main gallery
+    for (let x in this._list) {
+      let figure = gallery.appendChild(document.createElement("figure"));
+      let image = figure.appendChild(document.createElement("img"));
+      figure.appendChild(document.createElement("figcaption"));
+      image.setAttribute(
+        "onclick",
+        "openModal(" +
+          this._galleryId +
+          "MODAL" +
+          "); currentSlide(" +
+          this._galleryId +
+          "MODAL" +
+          ", " +
+          (Number(x) + 1) +
+          ")",
+      );
+      image.setAttribute("class", "hover-shadow");
 
-    // adding images to modal
-    for (var i = 0; i < images.length; i++) {
+
+      // adding images to gallery and considering uppercase file name endings
+      if (this._thumbnails) {
+          var path = this._list[x]
+          let subpath = path.substring(-1)
+        if (subpath == subpath.toLowerCase()) {
+          image.setAttribute("src", "./images/thumbnails/" + path.substring(9));
+        } else {
+          path = path.substring(9)
+          image.setAttribute("src", "./images/thumbnails/" + path.replace('JPG', 'jpg'));
+        }
+      } else {
+        image.setAttribute("src", this._list[x])
+      }
+
       let containerDiv = modalContent.appendChild(
         document.createElement("div"),
       );
+
+
+      // adding images to modal
       containerDiv.setAttribute("class", "mySlides");
       let countDiv = containerDiv.appendChild(document.createElement("div"));
       countDiv.setAttribute("class", "numbertext");
-      countDiv.innerHTML = i + 1 + " / " + images.length;
-      let figure = countDiv.appendChild(document.createElement("figure"));
-      let image = figure.appendChild(document.createElement("img"));
-      if (this._thumbnails) {
-        let src = images[i].getAttribute("src")
-        image.setAttribute("src", "./images/" + src.substring(20));
-      } else {
-        image.setAttribute("src", images[i].getAttribute("src"))
-      }
-      figure.appendChild(document.createElement("figcaption"));
+      countDiv.innerHTML = Number(x) + 1 + " / " + this._list.length;
+      let figureModal = countDiv.appendChild(document.createElement("figure"));
+      let imageModal = figureModal.appendChild(document.createElement("img"));
+      imageModal.setAttribute("src", this._list[x])
+      figureModal.appendChild(document.createElement("figcaption"));
+
     }
 
     // adding modal to document
     document.querySelector("body").appendChild(modal);
   }
 
-  buildCaptions( {dateGallery = true, dateModal = true}) {
+  captions( {dateGallery = true, dateModal = true}) {
     if (dateGallery && dateModal) {
         this.helperGallery = "";
         this.helperModal = "";
@@ -150,7 +141,6 @@ class galleryBuilder {
       window.onload = getExif;
     }
     window.onload = function() {getExif(); temp();};
-    // window.onload = getExif;
   }
 }
 

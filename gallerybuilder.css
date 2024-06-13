@@ -3,11 +3,13 @@
     grid-template-columns: repeat(3, 1fr);
     justify-content: center;
     overflow: none;
+    grid-gap: 10px;
     width: 100%;
 }
 
 .Gallery img {
-    width: 20vw;
+    width: 400px;
+    max-width: 100%;
     aspect-ratio: 1/1;
     object-fit: cover;
     height: auto;
@@ -18,7 +20,7 @@
     display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 5vh;
+    padding-top: 1vh;
     left: 0;
     top: 0;
     width: 100%;
@@ -41,6 +43,12 @@
     margin: auto;
     display: block;
     position: relative;
+    overflow: none;
+}
+
+.modal-content figcaption {
+    text-align: center;
+    /* font-size: larger; */
 }
 
 /* The Close Button */
@@ -98,6 +106,8 @@
     padding: 8px 12px;
     position: relative;
     top: 0;
+    font-size:x-large
+
 }
 
 img.hover-shadow {

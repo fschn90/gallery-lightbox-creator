@@ -40,11 +40,11 @@ npm install # from package.json
       "./foto-4.jpg",
       "./foto-5.jpg",
     ],
+    true, // thumbnails are in a /thumbnails/ directory and have same name image file; default = false
   );
 
-  instance1.buildGallery();
-  instance1.buildLightbox();
-  instance1.buildCaptions({dateGallery: false, dateModal: true});
+  instance1.build();
+  instance1.captions({dateGallery: false, dateModal: true});
 
   var instance2 = new galleryBuilder(
     "Gallery2", // reference to html container with id
@@ -57,9 +57,8 @@ npm install # from package.json
     ],
   );
 
-  instance2.buildGallery();
-  instance2.buildLightbox();
-  instance2.buildCaptions({});
+  instance2.build();
+  instance2.captions({});
 </script>
 <body>
   <h1>Gallery example</h1>
@@ -77,15 +76,17 @@ buildCaptions needs an dictionaty as parameter. An empty one, `{}`, for default 
 
 integration of exif-js into class method, hacky at best. but it works.
 
+images need to be .jpg file format.
+
 ## potential improvements
 
 ### major
-* add parameters to galleryBuilder.buildCaptions() to make modular, ie what to be parsed and displayed from exif 
 * incude videos
 * order (html hierarchy) of items in modal not right, compare to source w3 page https://www.w3schools.com/howto/howto_js_lightbox.asp
 * make mobile friendly (swiping)
 * add little map with a marker of where image was taken if image has geo-data
     * or parse countries from gps coords
+* include other image file types, eg png
 
 ### minor
 * rebrand galBox-js

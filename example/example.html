@@ -23,17 +23,16 @@
                 "./images/foto-4.jpg",
                 "./images/foto-5.jpg",
             ],
-            true,
+            true, // 
         );
 
-        instance1.buildGallery();
-        instance1.buildLightbox();
-        instance1.buildCaptions({dateGallery: false, dateModal: true});
+        instance1.build();
+        instance1.captions({dateGallery: false, dateModal: true});
 
         var instance2 = new galleryBuilder(
             "Gallery2", // reference to html container with id
             [
-                "./images/foto-1.jpg",
+                "./images/foto-1.JPG",
                 "./images/foto-2.jpg",
                 "./images/foto-3.jpg",
                 "./images/foto-4.jpg",
@@ -41,14 +40,13 @@
             ],
         );
 
-        instance2.buildGallery();
-        instance2.buildLightbox();
-        // instance2.buildCaptions();         
+        instance2.build();
+        // instance2.captions({});         
         
         var instance3 = new galleryBuilder(
             "Gallery3", // reference to html container with id
             [
-                "./images/foto-1.jpg",
+                "./images/foto-1.JPG",
                 "./images/foto-2.jpg",
                 "./images/foto-3.jpg",
                 "./images/foto-4.jpg",
@@ -56,9 +54,8 @@
             ],
         );
 
-        instance3.buildGallery();
-        instance3.buildLightbox();
-        instance3.buildCaptions({}); 
+        instance3.build();
+        instance3.captions({}); 
     </script>
 
 <body>
